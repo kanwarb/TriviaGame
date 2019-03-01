@@ -101,21 +101,21 @@ function resetValues() {
                 answerQuestion (currentQuestion,userSelection);
                 
                 //answerQuestion (currentQuestion,userSelection);
-                setTimeout(resetValues, 2000);
+                
+                setTimeout(resetValues, 1000);
+
+                if(questions.length == 0 && isClicked){
+                    if(isClicked){
+                        setTimeout(triviaSummary());
+                        console.log("End of questions"+ questions.length);
+                    }
+                            
+                 }
             })
-            
+        }
+        
 
-        }
-        if(questions.length == 0){
-           
-           if(isClicked){
-               triviaSummary();
-               console.log(questions.length);
-           }
-                   
-        }
     }
-
 
     function showOptions(cq){
             var currentOption;
@@ -151,8 +151,8 @@ function resetValues() {
         if(timeLeft === 0){
             if(!isClicked) {
                 timedOut++;
-                $("#qAnswer").text("Time Out");
-                console.log(currentQuestion.answerImg);
+                $('.btn-list').remove();
+                $("#qAnswer").text("Time Out. Correct Answer is "+currentQuestion.answer);
                 $("#qAnswerImg").html("<img class= img'-thumbnail src=" + currentQuestion.answerImg + " width='300px'>");
                 console.log("timeout " +timedOut);
 
@@ -189,11 +189,22 @@ function resetValues() {
            
         }      
 
+    function triviaSummary(){
+        $("#trivia-timeLeft").empty();
+        $("#trivia-game").empty();
+        $("#trivia-options").empty();
+        $("#qAnswer").empty();
+        $("#qAnswerImg").empty();
+        $("#trivia-game").html("<h3>" + "All done here. Let's see how you did" + "</h3> <br><br>");
+        $("#trivia-options").html("<h4 class='text-center mx-auto'> Correct Answers: " + answered + " </h4> <br>" );
+        $("#trivia-options").append("<h4 class='text-center mx-auto'> Incorrect Answers: " + unanswered+ " </h4> <br>" );
+        $("#trivia-options").append("<h4 class='text-center mx-auto'> Unanswered: " + timedOut + " </h4> <br>" );
+        
+    }
    
     function removeButtons () {
-        $("trivia-options").removeButtons();
+        $("#trivia-options").removeButtons();
     }
-
 })
     
    
