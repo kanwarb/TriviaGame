@@ -4,14 +4,17 @@ var questions =
     [{questionNo: 1, 
         question: "Which continent is inhabitated by Penguins", 
         answer: "Antartica", 
+        answerImg: "assets/images/penguins.jpg",
         options: ['Antartica', 'Jamica', 'UK', 'India']},
     {questionNo: 2, 
         question: "What is the Capital of Italy", 
         answer: "Rome", 
+        answerImg: "assets/images/rome.jpg",
         options: ['Sydney', 'Nicaragua', 'Switzerland', 'Rome']},
     {questionNo: 3, 
         question: "What is one of the Wonders of the World", 
         answer: "Hanging Gardens", 
+        answerImg: "assets/images/hanging-gardens.png",
         options: ['Swimming Pool', 'Hanging Gardens', 'Amazon', 'Your Backyard']}
 ];
 
@@ -34,9 +37,9 @@ var questions =
     var answered=0;
     var timedOut=0;
     var isClicked = false;;
+    var ansImage;
 
-// The reset function resets all values assigned before asking the next question
-
+// Invoke Trivia Game here when user presses the start button
 $("#start").on("click" , function(e) {      
     $("#start").hide();
     myQuestions();
@@ -48,10 +51,10 @@ function triviaSummary()
     console.log("Trivia Game over");
 }
 function myQuestions() {
-   myInterval = setInterval(askQuestion(),1000);
+  askQuestion();
 }
 
-
+// The reset function resets all values assigned before asking the next question
 function resetValues() {
 
     clearInterval(myInterval);
@@ -64,14 +67,13 @@ function resetValues() {
     timeInterval='';
     ansInterval='';
     isClicked = false;
-    //
-    $("#buttonList").remove();
-    myInterval = setInterval(askQuestion(),1000);
-    // if(questions.length < 0){
-    //     $("#trivia-game").html("<h2>" + '' + "</h2>"); 
-    //     clearInterval(myInterval);
-    //     $("#buttonList").remove();
-    // }
+    $('.btn-list').remove();
+    askQuestion();
+    if(questions.length ===0  && isClicked) {
+        console.log("Questions over");
+        triviaSummary();
+
+    }
 }
 
     
@@ -96,14 +98,20 @@ function resetValues() {
                 isClicked = true;
                 userSelection = $(this).attr('value');
                
-                //ansInterval = setTimeout(answerQuestion (currentQuestion,userSelection),10000);
                 answerQuestion (currentQuestion,userSelection);
-
+                
+                //answerQuestion (currentQuestion,userSelection);
+                setTimeout(resetValues, 2000);
             })
+            
 
         }
-        if(questions.length < 0){
-           resetValues; 
+        if(questions.length == 0){
+           
+           if(isClicked){
+               triviaSummary();
+               console.log(questions.length);
+           }
                    
         }
     }
@@ -144,36 +152,39 @@ function resetValues() {
             if(!isClicked) {
                 timedOut++;
                 $("#qAnswer").text("Time Out");
+                console.log(currentQuestion.answerImg);
+                $("#qAnswerImg").html("<img class= img'-thumbnail src=" + currentQuestion.answerImg + " width='300px'>");
                 console.log("timeout " +timedOut);
+
             }   
-            resetValues();
-
+            setTimeout(resetValues, 1000);
         }
-
+     
+     
     }
 // answer Question is where the user selection to answer is verified, if the answer is right he get a point  if he gets it wrong
 // He loses and a count is added to correct , incorrect and not answered questions
 
     function answerQuestion (currentQuestion,userSelection) {
         
-        if(timeLeft == 0){
-     
-           resetValues();
-        }
-        else 
+       
 
             if (userSelection === correctAnswer ) {
                 answered++;
+                $('.btn-list').remove();
                 $("#qAnswer").text("Correct Answer!");
+                $("#qAnswerImg").html("<img class= img'-thumbnail src=" + currentQuestion.answerImg + " width='300px'>");
                 console.log(answered);
-                resetValues();
+                //resetValues();
             }
             else{
+                $('.btn-list').remove();
                 unanswered++;
                 $("#qAnswer").text("Incorrect Answer. Correct Answer is "+currentQuestion.answer);
+                $("#qAnswerImg").html("<img class= img'-thumbnail src=" + currentQuestion.answerImg + " width='300px'>");
                 console.log("That is not the right answer");
                 console.log("correct answer" + currentQuestion.answer);
-                resetValues();
+               // resetValues();
             }
            
         }      
