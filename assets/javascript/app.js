@@ -106,7 +106,7 @@ function resetValues() {
                  if(questions.length == 0 && isClicked){
                     if(isClicked){
                         isClicked=false;
-                        triviaSummary();
+                        setTimeout(triviaSummary(),3000);
                         console.log("End of questions"+ questions.length);
                     }   
                            
@@ -156,9 +156,9 @@ function resetValues() {
 
             }   
            
-            resetValues();
+            setTimeout(resetValues, 1000);
             if(questions.length ==0 ){
-                triviaSummary();
+                setTimeout(triviaSummary(),3000);
             }
         }
      
@@ -204,10 +204,9 @@ function resetValues() {
         $("#trivia-options").append("<h4 class='text-center mx-auto'> Unanswered: " + timedOut + " </h4> <br>" );
         
        $("#startOver").attr("style", "visibility:visible");
-       $("#startOver").click(function() {  
-            $("#start").click;
-     
-    })
+       $("#startOver").click(function(evt) {  
+            $("#parentDiv").load("index.html")
+        })
 }
    
 //})
