@@ -1,6 +1,6 @@
-$(document).ready( function (){
+//$(document).ready( function (){
 // create an array of questions 
-var questions = 
+var questionsArr = 
     [{questionNo: 1, 
         question: "Which continent is inhabitated by Penguins", 
         answer: "Antartica", 
@@ -25,6 +25,7 @@ var questions =
 
 // Global Variables 
     var qs;
+    var questions =[];
     var questionCount= questions.length;
     var countDown;
     var timeLeft = 10;
@@ -47,19 +48,20 @@ var questions =
 // Invoke Trivia Game here when user presses the start button
 $("#start").on("click" , function(e) {      
     $("#start").hide();
-    myQuestions();
+    questions= questionsArr;
+    askQuestion();
     
 })
     
 
-function myQuestions() {
-  askQuestion();
-}
+// function myQuestions() {
+//   askQuestion();
+// }
 
 // The reset function resets all values assigned before asking the next question
 function resetValues() {
     clearInterval(timeInterval);
-    $("#trivia-game").hide();
+    
     $("#qAnswer").empty();
     $("#qAnswerImg").empty();
     $('.btn-list').remove();
@@ -69,7 +71,8 @@ function resetValues() {
     timeInterval='';
     ansInterval='';
     isClicked = false;
-  
+    $("#qAnswer").addClass("hide");
+    $("#qAnswerImg").addClass("hide");
     askQuestion();
     
 }
@@ -89,7 +92,7 @@ function resetValues() {
             correctAnswer = currentQuestion.answer;
 
             timeInterval = setInterval(timeLapsed,1000);
-            $("#trivia-game").show();
+   
             $("#trivia-game").html("<h2>" + currentQuestion.question + "</h2>");
             showOptions(currentQuestion.options);
 
@@ -97,9 +100,12 @@ function resetValues() {
                 isClicked = true;
                 userSelection = $(this).attr('value');  
                 answerQuestion (currentQuestion,userSelection);
+                $("#qAnswer").addClass("show");
+                $("#qAnswerImg").addClass("show");
                  setTimeout(resetValues, 1000);
                  if(questions.length == 0 && isClicked){
                     if(isClicked){
+                        isClicked=false;
                         triviaSummary();
                         console.log("End of questions"+ questions.length);
                     }   
@@ -162,14 +168,14 @@ function resetValues() {
 // He loses and a count is added to correct , incorrect and not answered questions
 
     function answerQuestion (currentQuestion,userSelection) {
-        
+             
             if (userSelection === correctAnswer ) {
                 answered++;
                 $('.btn-list').remove();
                 $("#qAnswer").text("Correct Answer!");
                 $("#qAnswerImg").html("<img class= img'-thumbnail src=" + currentQuestion.answerImg + " width='300px'>");
                 console.log(answered);
-                //resetValues();
+                
             }
             else{
                 
@@ -179,28 +185,32 @@ function resetValues() {
                 $("#qAnswerImg").html("<img class= img'-thumbnail src=" + currentQuestion.answerImg + " width='300px'>");
                 console.log("That is not the right answer");
                 console.log("correct answer" + currentQuestion.answer);
-               // resetValues();
+               
             }
            
         }      
 
     function triviaSummary(){
+        
         $("#trivia-timeLeft").empty();
         $("#trivia-game").empty();
         $("#trivia-options").empty();
-        $("#qAnswer").remove();
-        $("#qAnswerImg").remove();
+        $("#qAnswer").empty();
+        $("#qAnswerImg").empty();
         $("#trivia-game").show();
         $("#trivia-game").html("<h3>" + "All done here. Let's see how you did" + "</h3> <br><br>");
         $("#trivia-options").html("<h4 class='text-center mx-auto'> Correct Answers: " + answered + " </h4> <br>" );
         $("#trivia-options").append("<h4 class='text-center mx-auto'> Incorrect Answers: " + unanswered+ " </h4> <br>" );
         $("#trivia-options").append("<h4 class='text-center mx-auto'> Unanswered: " + timedOut + " </h4> <br>" );
-       // $("#trivia-timeLeft").attr("style", "visibility:hidden");
-       $("#start").show();
         
-      }
+       $("#startOver").attr("style", "visibility:visible");
+       $("#startOver").click(function() {  
+            $("#start").click;
+     
+    })
+}
    
-})
+//})
     
    
 

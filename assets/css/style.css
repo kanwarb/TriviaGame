@@ -4,7 +4,23 @@ img{
     margin-left: 75px;
 }
 
-.card {
-    border-color: transparent;
+
+
+
+
+html {
+    background-image:   url("../images/triviaImages.jpg");
 }
 
+#start {
+   margin-top: 20rem;
+    margin-left: 20rem;
+    padding: 5rem;
+    background: transparent;
+}
+
+.jumbotron {
+    width:  80%;
+    height: 50%;
+    float:  left;
+}
