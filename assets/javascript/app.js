@@ -106,7 +106,7 @@ function resetValues() {
 
                 if(questions.length == 0 && isClicked){
                     if(isClicked){
-                        setTimeout(triviaSummary());
+                        setTimeout(triviaSummary(),1000);
                         console.log("End of questions"+ questions.length);
                     }
                             
@@ -149,6 +149,7 @@ function resetValues() {
         $("#trivia-timeLeft").text("Time Left: " + timeLeft );
         // If the use did not press any key then the question times out 
         if(timeLeft === 0){
+                
             if(!isClicked) {
                 timedOut++;
                 $('.btn-list').remove();
@@ -157,7 +158,11 @@ function resetValues() {
                 console.log("timeout " +timedOut);
 
             }   
+
             setTimeout(resetValues, 1000);
+            if(questions.length ==0 ){
+                triviaSummary();
+            }
         }
      
      
