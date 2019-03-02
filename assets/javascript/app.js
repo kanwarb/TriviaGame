@@ -246,7 +246,7 @@ function resetValues() {
         timedOut=0;
         unanswered=0;
         answered=0;
-        timeLeft=10;
+        timeLeft=30;
         userSelected='';
         userSelection='';
         isClicked = false;
