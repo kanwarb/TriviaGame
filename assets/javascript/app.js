@@ -1,4 +1,4 @@
-$(document).ready( function (){
+//$(document).ready( function (){
 // create an array of questions 
 var questionsArr = 
     [{questionNo: 1, 
@@ -88,8 +88,8 @@ $("#start").click( function(e) {
 function resetValues() {
     clearInterval(timeInterval);
     
-    $("#qAnswer").empty();
-    $("#qAnswerImg").empty();
+    // $("#qAnswer").empty();
+    // $("#qAnswerImg").empty();
     $('.btn-list').remove();
     timeLeft=10;
     timeOut = false;
@@ -126,13 +126,15 @@ function resetValues() {
                 isClicked = true;
                 userSelection = $(this).attr('value');  
                 answerQuestion (currentQuestion,userSelection);
-                $("#qAnswer").addClass("show");
-                $("#qAnswerImg").addClass("show");
+                // $("#qAnswer").addClass("show");
+                // $("#qAnswerImg").addClass("show");
                  setTimeout(resetValues, 1000);
                  if(questions.length == 0 && isClicked){
                     if(isClicked){
                         isClicked=false;
-                        setTimeout(triviaSummary(),3000);
+                        triviaSummary();
+                        questions=questionsArr;
+                        resetValues();
                         console.log("End of questions"+ questions.length);
                     }   
                            
@@ -184,7 +186,7 @@ function resetValues() {
            
             setTimeout(resetValues, 1000);
             if(questions.length ==0 ){
-                setTimeout(triviaSummary(),3000);
+               triviaSummary();
             }
         }
      
@@ -207,7 +209,7 @@ function resetValues() {
                 
                 unanswered++;
                 $('.btn-list').remove();
-                $("#qAnswer").text("Incorrect Answer. Correct Answer is "+currentQuestion.answer);
+                $("#qAnswer").text("Incorrect Answer. Correct Answer is " + currentQuestion.answer);
                 $("#qAnswerImg").html("<img class= img'-thumbnail src=" + currentQuestion.answerImg + " width='300px'>");
                 console.log("That is not the right answer");
                 console.log("correct answer" + currentQuestion.answer);
@@ -228,17 +230,32 @@ function resetValues() {
         $("#trivia-options").html("<h4 class='text-center mx-auto'> Correct Answers: " + answered + " </h4> <br>" );
         $("#trivia-options").append("<h4 class='text-center mx-auto'> Incorrect Answers: " + unanswered+ " </h4> <br>" );
         $("#trivia-options").append("<h4 class='text-center mx-auto'> Unanswered: " + timedOut + " </h4> <br>" );
-        
-       $("#startOver").attr("style", "visibility:visible");
-       $("#startOver").bind("click", (function (e) {
-      //  $(document).on("click", "#startOver", function(e){
-           e.preventDefault();
-            $("button#start").click();
-      
-        }));
-}
+        $("#startOver").attr("style", "visibility:visible");
+ 
+    }
+
+    
+    $("#startOver").on("click",function (e) {
+        $("#trivia-timeLeft").empty();
+        $("#trivia-game").empty();
+        $("#trivia-options").empty();
+        $("#qAnswer").remove();
+        $("#qAnswerImg").remove();
+        timedOut=0;
+        unanswered=0;
+        answered=0;
+        timeLeft=10;
+        currentQuestion='';
+        userSelected='';
+        userSelection='';
+        isClicked = true;
+        clearInterval(timeInterval);
+        questions= questionsArr;
+        answerQuestion();
+         console.log("trivia Question");
+     });
    
-})
+//})
     
    
 
