@@ -5,7 +5,9 @@ img{
 }
 
 
-
+div {
+    font-size: 2rem;
+}
 
 
 html {
@@ -13,14 +15,16 @@ html {
 }
 
 #start{
-   margin-top: 20rem;
-    margin-left: 20rem;
-    padding: 5rem;
+   /* margin-top: 15rem;
+    margin-left: 25rem; */
+    margin: auto;
+    padding-left: 5rem;
     background: transparent;
 }
 
 .jumbotron {
-    width:  80%;
+    margin: auto;
+    width:  85%;
     height: 50%;
     float:  left;
 }

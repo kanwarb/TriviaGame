@@ -53,7 +53,7 @@ var questionsArr =
     var questions =[];
     var questionCount= questions.length;
     var countDown;
-    var timeLeft = 10;
+    var timeLeft = 30;
     var myInterval;
     var currentQuestion;
     var timeOut = true;
@@ -74,7 +74,8 @@ var questionsArr =
 $("#start").click( function(e) { 
     e.preventDefault();     
     $("#start").hide();
-    questions= questionsArr;
+     questions = questionsArr.slice(0);
+    //questions= questionsArr;
     askQuestion();
     
 })
@@ -88,10 +89,10 @@ $("#start").click( function(e) {
 function resetValues() {
     clearInterval(timeInterval);
     
-    // $("#qAnswer").empty();
-    // $("#qAnswerImg").empty();
+    $("#qAnswer").empty();
+    $("#qAnswerImg").empty();
     $('.btn-list').remove();
-    timeLeft=10;
+    timeLeft=30;
     timeOut = false;
     userSelection='';
     timeInterval='';
@@ -126,15 +127,14 @@ function resetValues() {
                 isClicked = true;
                 userSelection = $(this).attr('value');  
                 answerQuestion (currentQuestion,userSelection);
-                // $("#qAnswer").addClass("show");
-                // $("#qAnswerImg").addClass("show");
+                $("#qAnswer").addClass("show");
+                $("#qAnswerImg").addClass("show");
                  setTimeout(resetValues, 1000);
                  if(questions.length == 0 && isClicked){
                     if(isClicked){
                         isClicked=false;
                         triviaSummary();
-                        questions=questionsArr;
-                        resetValues();
+                        
                         console.log("End of questions"+ questions.length);
                     }   
                            
@@ -178,7 +178,7 @@ function resetValues() {
             if(!isClicked) {
                 timedOut++;
                 $('.btn-list').remove();
-                $("#qAnswer").text("Time Out. Correct Answer is "+currentQuestion.answer);
+                $("#qAnswer").text("Time Out. Correct Answer is"+ currentQuestion.answer );
                 $("#qAnswerImg").html("<img class= img'-thumbnail src=" + currentQuestion.answerImg + " width='300px'>");
                 console.log("timeout " +timedOut);
 
@@ -236,24 +236,32 @@ function resetValues() {
 
     
     $("#startOver").on("click",function (e) {
+        e.preventDefault(); 
+        $("#startOver").hide();
         $("#trivia-timeLeft").empty();
         $("#trivia-game").empty();
         $("#trivia-options").empty();
-        $("#qAnswer").remove();
-        $("#qAnswerImg").remove();
+        $("#qAnswer").empty();
+        $("#qAnswerImg").empty();
         timedOut=0;
         unanswered=0;
         answered=0;
         timeLeft=10;
-        currentQuestion='';
         userSelected='';
         userSelection='';
-        isClicked = true;
+        isClicked = false;
         clearInterval(timeInterval);
-        questions= questionsArr;
-        answerQuestion();
+        questions = questionsArr.slice(0);
+       // findQuestions();
+        askQuestion();
          console.log("trivia Question");
      });
+
+    //  function findQuestions() {
+    //     for(i=0;i< questions.length;i++){
+    //         console.log(questions[i].answer);
+    //     }
+    //  }
    
 //})
     
