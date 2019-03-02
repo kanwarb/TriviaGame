@@ -1,4 +1,4 @@
-//$(document).ready( function (){
+$(document).ready( function (){
 // create an array of questions 
 var questionsArr = 
     [{questionNo: 1, 
@@ -20,7 +20,32 @@ var questionsArr =
             question: "Where is the Golden Gate Bridge", 
             answer: "San Francisco", 
             answerImg: "assets/images/goldengate.jpg",
-            options: ['San Francisco', 'Belgium', 'London', 'Sacramento']}
+            options: ['San Francisco', 'Belgium', 'London', 'Sacramento']},
+    {questionNo: 5, 
+                question: "What were the Wright Brothers famous for ", 
+                answer: "Planes", 
+                answerImg: "assets/images/wrightbrothers.jpg",
+                options: ['Cars', 'Pens', 'Planes', 'Bunji Jumping']},
+    {questionNo: 6, 
+                    question: "What were the Native's in America", 
+                    answer: "American Indian", 
+                    answerImg: "assets/images/nativeamerican.jpg",
+                    options: ['Japanese', 'British', 'French', 'American Indian']},
+    {questionNo: 7, 
+                    question: "What Temprature does water freeze", 
+                    answer: "0 Degree", 
+                    answerImg: "assets/images/waterfreezing.jpg",
+                    options: ["100 Degree Fh", '20 Degree Fh', '10 Degree C', '0 Degree']},
+    {questionNo: 8, 
+                    question: "Who was the first man in space", 
+                    answer: "Yuri Gagarin", 
+                    answerImg: "assets/images/yurigagarin.jpg",
+                    options: ['Buzz Aldrige', 'Yuri Gagarin', 'Scooby Do', 'Neil Armstrong']},
+    {questionNo: 9, 
+                    question: "Where was the first man on the moon", 
+                    answer: "Neil Armstrong", 
+                    answerImg: "assets/images/neilarmstrong.jpg",
+                    options: ['John Gault', 'Neil Armstrong', 'Yuri Gagarin', 'None of these']}
 ];
 
 // Global Variables 
@@ -46,7 +71,8 @@ var questionsArr =
     var ansImage;
 
 // Invoke Trivia Game here when user presses the start button
-$("#start").on("click" , function(e) {      
+$("#start").click( function(e) { 
+    e.preventDefault();     
     $("#start").hide();
     questions= questionsArr;
     askQuestion();
@@ -204,12 +230,15 @@ function resetValues() {
         $("#trivia-options").append("<h4 class='text-center mx-auto'> Unanswered: " + timedOut + " </h4> <br>" );
         
        $("#startOver").attr("style", "visibility:visible");
-       $("#startOver").click(function(evt) {  
-            $("#parentDiv").load("index.html")
-        })
+       $("#startOver").bind("click", (function (e) {
+      //  $(document).on("click", "#startOver", function(e){
+           e.preventDefault();
+            $("button#start").click();
+      
+        }));
 }
    
-//})
+})
     
    
 
