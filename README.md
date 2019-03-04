@@ -1,6 +1,9 @@
 # TriviaGame
 TriviaGame
 
+### Play it 
+
+![Trivia](" https://kanwarb.github.io/TriviaGame/")
 
 ### Rule for the Game
 Trivia game shows Player a Question until they have answerd all the questions presented.
@@ -22,4 +25,5 @@ Trivia game shows Player a Question until they have answerd all the questions pr
     * CSS
     * Javascript
     * jQuery
+
 
